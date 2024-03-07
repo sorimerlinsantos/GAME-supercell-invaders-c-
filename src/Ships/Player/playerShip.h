@@ -20,6 +20,8 @@ class Player{
         float accelerationAmount;   // Amount of acceleration
         bool isMoving = false;      // Flag to track if a movement key is being held
         float damping = 0.95;       // Damping factor for slowing down
+        bool found= false; //created boolean for speed
+       
 
        // === Attributes related to shooting ===
         float lastShotTime;                // Last time a shot was fired
@@ -39,11 +41,14 @@ class Player{
         ofPoint pos;                        // Position of the player
         HitBox hitBox;                      // Hitbox for the player
         bool showHitbox = false;
-
+                                //NEW VARIABLE FOR THE LIVES 
+    //added un getter para health
+        int getHealth();
+        void setHealth(int);
     // === Constructors ===
         Player();                                      // Default Constructor
         Player(int Xposition, int Yposition);         // Parametrized Constructor for the playerShip
-    
+        
         int getScore(); 
         void setScore(int score); 
   

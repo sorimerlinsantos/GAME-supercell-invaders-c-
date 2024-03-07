@@ -47,21 +47,25 @@ void ShipBattle::update() {
         updateBullets();
     }
 
-    // State switching logic for when the player dies
-    if (this->player->health <= 0) {
-        
-        this->setNextState("GameOverState");
-        SoundManager::stopSong("battle");
-        if(EnemyManager::getSpawningBossType() != ""){
-            SoundManager::stopSong(EnemyManager::getSpawningBossType());
+    // State switching logic for when the player dies, to actually have more lifes
+    if (player->health <= 0) {
+        if(lives_remaining!=1){
+            player-> setHealth(100);
+            lives_remaining--;
         }
-            // Write the current score to a file
-            ofstream scoreFile("currentScore.txt");
-            if (scoreFile.is_open()) {
-                scoreFile << playerScore;
-                scoreFile.close();
+        else{
+            this->setNextState("GameOverState");
+            SoundManager::stopSong("battle");
+            if(EnemyManager::getSpawningBossType() != ""){
+                SoundManager::stopSong(EnemyManager::getSpawningBossType());
             }
-            this->setFinished(true);
+                // Write the current score to a file
+                ofstream scoreFile("currentScore.txt");
+                if (scoreFile.is_open()) {
+                    scoreFile << playerScore;
+                    scoreFile.close();
+                }
+                this->setFinished(true);
     }
 }
 
@@ -73,6 +77,8 @@ void ShipBattle::draw() {
     // Draw the score
     ofSetColor(ofColor::white);
     font.drawString("SCORE " + to_string(playerScore), ofGetWidth() / 2 - 50, 50);
+    font.drawString("Lives Remaining   "+to_string(lives_remaining), ofGetWidth()/2 - 50, 100);
+
 
     // Draw enemies and player
     EnemyManager::drawEnemies();

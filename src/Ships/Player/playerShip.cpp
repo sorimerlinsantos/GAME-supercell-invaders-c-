@@ -25,6 +25,9 @@ Player::Player(){
 
 int Player::getScore() { return score; }
 void Player::setScore(int score) { this->score = score; }
+int Player::getHealth(){return health; }
+void Player::setHealth(int health){this-> health=health; }
+
 
 void Player::draw() {
         // Draw the ship sprite with the calculated rotation
@@ -51,6 +54,14 @@ void Player::update() {
     velocity *= damping; // Apply damping to slow down the ship
 
     draw();  // Draw the ship
+
+
+    if(found==true){  //created the sprinting
+        maxSpeed *= 2;
+    }
+    else{
+        maxSpeed=5;
+    }
 
 }
 
@@ -101,7 +112,16 @@ void Player::processPressedKeys() {
         // Apply damping to gradually slow down the ship when no keys are being pressed
         velocity *= damping; 
     }
-}      
+
+    if(keyMap[OF_KEY_SHIFT] == true){  //logic that if el shift bottom is press, found is true. 
+        found= true;
+    }
+    else{
+        found=false;
+    }
+   
+}   
+    
 
 void Player::removePressedKey(int key) {
     key = tolower(key);
@@ -131,4 +151,6 @@ void Player::movement(char keyPressed) {
         // Rotate the ship clockwise
         shipOrientation += rotationSpeed;
         }
-    }   
+}   
+//tengo que saber cuando tengo el shift precionado y cuando no, si no lo tengo presionado ----
+// necesitamos dejar el key press por eso crearemos la logica en "proces press keys "

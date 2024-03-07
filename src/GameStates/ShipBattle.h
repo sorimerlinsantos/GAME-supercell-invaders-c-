@@ -36,6 +36,7 @@ public:
     // Public members accessible outside the class
     Player* player;                   // Pointer to the player's ship
     bool displayBossWarning;          // Flag to display boss warning
+    int lives_remaining=3;
 
     // Constructor and Destructor
     ShipBattle();                     // Constructor declaration
