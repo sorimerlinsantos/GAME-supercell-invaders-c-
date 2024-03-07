@@ -68,6 +68,7 @@ void ShipBattle::update() {
                 this->setFinished(true);
     }
 }
+}
 
 //====== Draw Method ====== 
 void ShipBattle::draw() {
