@@ -25,12 +25,10 @@ void GameOverState::update() {
         HighScore = currScore;
         highScoreAchieved = true;
         writeHighScore();
-       
     }
     
    for(Button* button : buttons) {
         button->update();
-      
     }
 
 }
@@ -80,7 +78,7 @@ void GameOverState::mousePressed(int x, int y, int button){
 void GameOverState::keyReleased(int key){
     
 }
-// set finished is false para resetear, 
+
 void GameOverState::reset(){
     highScoreAchieved = false;
     setFinished(false);

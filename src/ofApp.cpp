@@ -45,7 +45,6 @@ void ofApp::update(){
         if(currentState->getNextState() == "IntroState") {
             SoundManager::playSong("intro", true);
             currentState = intro;    
-            battle = new ShipBattle();//added retray 
         }
         
         else if(currentState->getNextState() == "BattleState"){
@@ -56,8 +55,6 @@ void ofApp::update(){
         else if(currentState->getNextState() == "GameOverState") {
             SoundManager::playSong("intro", true);
             currentState = gameOver;
-            
-
         }
         currentState->reset();
     }
