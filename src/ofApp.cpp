@@ -44,7 +44,8 @@ void ofApp::update(){
     if(currentState->hasFinished()){
         if(currentState->getNextState() == "IntroState") {
             SoundManager::playSong("intro", true);
-            currentState = intro;    
+            currentState = intro;   
+            battle = new ShipBattle();
         }
         
         else if(currentState->getNextState() == "BattleState"){

@@ -56,6 +56,7 @@ void ShipBattle::update() {
         else{
             this->setNextState("GameOverState");
             SoundManager::stopSong("battle");
+            EnemyManager::cleanUp();
             if(EnemyManager::getSpawningBossType() != ""){
                 SoundManager::stopSong(EnemyManager::getSpawningBossType());
             }
