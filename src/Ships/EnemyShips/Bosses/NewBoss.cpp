@@ -7,8 +7,6 @@ NewBoss::NewBoss(int xpos, int ypos, string name) : Boss(xpos, ypos,0.0, 750, na
     shootingPoint = ofPoint(ofGetWidth() / 2, ofGetHeight() / 2);
     
     
-    switchPosIndex = 0;
-    switchPosTimer = 0;
 }
     
 void NewBoss::update(const ofPoint& playerPos) {
@@ -18,7 +16,7 @@ void NewBoss::update(const ofPoint& playerPos) {
 
 
     // Shoot bullets in a semi-circular motion
-    if (shotTimer % 50  == 0) { // Adjust the value for the frequency of shooting
+    if (shotTimer % 5  == 0) { // Adjust the value for the frequency of shooting
         shoot();
     }
 
@@ -53,18 +51,17 @@ void NewBoss::draw() {
 void NewBoss::shoot() {
     const int numBullets = 36; // Increase the number of bullets for a smoother spiral
     const float angleStep = 360.0 / numBullets; // Ensure a full circle is covered
+    
+    // Calculate the angle for each bullet, incorporating the shootAngleOffset
+    float angle = bulletsShot * angleStep + shootAngleOffset;
 
-    for (int i = 0; i < numBullets; ++i) {
-        // Calculate the angle for each bullet, incorporating the shootAngleOffset
-        float angle = i * angleStep + shootAngleOffset;
-
-        // Create and initialize the bullet at the boss's position with the given angle
-        // Note: The angle is directly used in the Projectiles constructor
-        Projectiles bullet(shootingPoint, angle);
-        bullet.setSpeed(3);
-        bullet.setColors(ofColor::red, ofColor::orange); // Set desired colors
-        enemyBullets.push_back(bullet);
-    }   
+    // Create and initialize the bullet at the boss's position with the given angle
+    // Note: The angle is directly used in the Projectiles constructor
+    Projectiles bullet(shootingPoint, angle);
+    bullet.setSpeed(3);
+    bullet.setColors(ofColor::red, ofColor::orange); // Set desired colors 
+    enemyBullets.push_back(bullet);  
+    ++bulletsShot;     
 
     // Increment the shootAngleOffset for the next call to shoot() to continue the spiral
     shootAngleOffset += 10.0; // Adjust this value for the desired spiral rotation speed
@@ -72,6 +69,10 @@ void NewBoss::shoot() {
     // Optional: Reset shootAngleOffset to keep it within 0-360 degrees to avoid overflow
     if(shootAngleOffset >= 360.0) {
         shootAngleOffset -= 360.0;
+    }
+
+    if (bulletsShot >= numBullets){
+        bulletsShot=0;
     }
 
     SoundManager::playSong("bulletSound", false);

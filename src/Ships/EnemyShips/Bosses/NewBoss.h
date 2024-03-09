@@ -10,6 +10,7 @@ class NewBoss : public Boss {
         vector<ofPoint> possiblePositions;
         int switchPosIndex;
         int switchPosTimer;
+        int bulletsShot = 0;
 
     public:
         NewBoss(int xpos, int ypos, string name);
