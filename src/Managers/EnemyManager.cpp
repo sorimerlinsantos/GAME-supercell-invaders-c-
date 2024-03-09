@@ -9,6 +9,7 @@
 
     bool EnemyManager::ufoSeen = false;
     bool EnemyManager::ortSeen = false;
+    bool EnemyManager::newSeen = false;
 
     string EnemyManager::whichBoss = "";
     int EnemyManager::bossWarningTimer = 0;
@@ -233,15 +234,20 @@ void EnemyManager::spawnEnemy(Player* player){
 
         // Check if it's time to spawn a boss
         if (!bossIsActive) { // Ensure no boss is currently active before spawning another
-            if (currentScore > 50000 && !ortSeen) {
+            if (currentScore > 75000 && !ortSeen){
                 // Spawn ORT Xibalba
                 initiateBossSpawn("ORT Xibalba");
                 ortSeen = true; // Prevent multiple spawns
             }
-            else if (currentScore > 10000 && !ufoSeen) {
+            else if (currentScore > 50000 && !ortSeen) {
                 // Spawn UFO ORT
                 initiateBossSpawn("Galactica Supercell ORT");
                 ufoSeen = true; // Prevent multiple spawns
+            }
+            else if (currentScore > 10000 && !ufoSeen) {
+                // Spawn the new boss
+                initiateBossSpawn("Space Station");
+                newSeen = true;
             }
         }
 
@@ -249,7 +255,7 @@ void EnemyManager::spawnEnemy(Player* player){
         if (currentScore > 5000){
             enemyList.push_back(make_unique<NewEnemy>(spawnLocation.x, spawnLocation.y));
         }
-        
+
         else if (currentScore > 1500) {
             enemyList.push_back(make_unique<EnemyVanguard>(spawnLocation.x, spawnLocation.y));
         } 
@@ -298,6 +304,11 @@ void EnemyManager::spawnBoss(const string& bossType) {
         auto boss = make_unique<UFO>(ofGetWidth()/2, 20, "Galactica Supercell ORT");
         bossList.push_back(move(boss));
     }
+    else if (bossType == "Space Station") {
+        newSeen = true;   
+        auto boss = make_unique<NewBoss>(ofGetWidth()/2, ofGetHeight()/2 -50, "Space Station");
+        bossList.push_back(move(boss));
+    }
     // Reset the spawn timer and clear boss spawning flags
     enemySpawnTimer = 0;
     bossIsSpawning = false;
@@ -314,6 +325,7 @@ int EnemyManager::whichSpawnInterval(int playerScore) {
     // Simplified example, adjust intervals as needed
     if (!bossIsActive && ortSeen) return 5;
     if (!bossIsActive && ufoSeen) return 10;
+    if (!bossIsActive && newSeen) return 15;
     if (bossIsActive) return 150; // Slower spawn rate if a boss is active
     if (playerScore < 1000) return 60; // Fast spawn rate for low scores
     if (playerScore < 5000) return 80; // Slower spawn as difficulty increases
