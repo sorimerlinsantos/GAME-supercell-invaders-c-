@@ -31,4 +31,7 @@ class HitBox {
         bool isHit(Projectiles& bullet){
             return box.inside(bullet.position.x, bullet.position.y);          
         }
+        bool isColliding(const HitBox& HitBox){
+            return box.inside(HitBox.box.getPosition());
+}
 };

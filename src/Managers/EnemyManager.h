@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "playerShip.h"
+#include "HitBox.h"
 
 // Section for enemy types
 #include "EnemyCruiser.h"

@@ -87,7 +87,9 @@ void EnemyManager::manageCollisions(Player* player) {
 
     // Handle collisions between enemy bullets and the player
     for (auto& enemy : enemyList) {
-
+        if (player->hitBox.isColliding(*enemy->getHitBox())) {
+            player->health = max(player->health - 3.0, 0.0);
+        }
         for (auto& bullet : enemy->getBullets()) {
             if (!bullet.bulletIsOutOfBounds() && player->hitBox.isHit(bullet)) {
 
