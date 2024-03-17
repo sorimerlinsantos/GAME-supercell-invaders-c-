@@ -41,6 +41,7 @@ class Player{
         ofPoint pos;                        // Position of the player
         HitBox hitBox;                      // Hitbox for the player
         bool showHitbox = false;
+        int shield;                         //variable for counting when the shield is suppose to appear.
                                 //NEW VARIABLE FOR THE LIVES 
     //added un getter para health
         int getHealth();

@@ -66,4 +66,6 @@ public:
     double killSpreeMode();                                 // Logic for kill spree mode
     double scoreMultiplier();                               // Calculate score multiplier based on game state
     void removeMarkedPlayerBullets();                       // Remove bullets marked for deletion
+    void shieldBar(int theShield, int maxHealth);           // Render the on when we can use the shield. 
+    
 };

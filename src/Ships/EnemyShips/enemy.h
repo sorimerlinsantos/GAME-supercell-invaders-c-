@@ -26,6 +26,7 @@ class EnemyShip {
         ofImage enemyShipSprite;
 
         bool dead;
+        int shield;
 
     public:
         //  For debugging purposes. I added a boolean to toggle the hitboxes for all enemies

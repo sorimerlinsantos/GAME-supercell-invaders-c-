@@ -37,6 +37,8 @@ class EnemyManager {
         static void updateEnemies(Player* player); // Main method of the class, handling overall enemy management
         static void spawnEnemy(Player* player); // Handles the logic for spawning new enemies based on game state
         static void removeEnemies(); // Handles the removal of dead enemies from the game
+        //some variables for the bar of enemys
+       
         
 
 

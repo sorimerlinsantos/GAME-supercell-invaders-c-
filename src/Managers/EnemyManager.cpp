@@ -71,12 +71,13 @@ void EnemyManager::manageCollisions(Player* player) {
         for (auto& bullet : player->bullets) {
             if (!bullet.bulletIsOutOfBounds() && enemy->getHitBox()->isHit(bullet)) {
                 player->health = min(player->health + 3.0, 100.0); // Reward the player by healing them
-
+                player->shield= min(player->shield + 10.0, 100.0); // every time that they hit the player, we add to the shield.
                 enemy->takeDamage(bullet.getDamage());            // Enemy will take damage from the bullet
                 if (enemy->isDead()) {
                     SoundManager::playSong("shipDestroyed", false);
                     pointsPerUpdateCycle += enemy->getPoints();
                     resetKillSpreeTimer(150);
+                    
                 }
                 bullet.markForDeletion(); // Mark bullet for deletion
             }
