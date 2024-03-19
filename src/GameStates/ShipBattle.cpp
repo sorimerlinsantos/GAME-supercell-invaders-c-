@@ -13,6 +13,7 @@ ShipBattle::ShipBattle() {
     indicatorFont.load("Fonts/Orbitron.ttf", 10, true);
     backgroundImage.load("Menu_Images/BattleArea.jpg");
 
+
 }
 
 // ====================================
@@ -68,6 +69,7 @@ void ShipBattle::update() {
                 }
                 this->setFinished(true);
     }
+   
 }
 }
 
@@ -102,11 +104,19 @@ void ShipBattle::draw() {
     healthBar(player->health, 100);
     killSpreeTimer(this->killspreeTimer, 150);
     shieldBar(player->shield, 100);
+    //ofDrawBitmapString(player->shield, 10, 180);
     
     //Draw a mini box for the bomb. Make sure to draw the bomb inside this box.
         ofNoFill();
         ofDrawRectangle(ofGetWidth() - 150, 30, 50, 50);
         ofFill();
+
+    // //drawing the shield 
+    // if(player->show_shield==true){
+    //     ForceShield.load("ForceShield.png", 20,true);
+        
+
+    // }
     
 }
 
@@ -123,7 +133,17 @@ void ShipBattle::keyPressed(int key) {
         player->showHitbox = !player->showHitbox;
     }
     if(key == 'o')  player->health = 100;
-    if(key == 'p')  playerScore += 10000; 
+    if(key == 'p')  playerScore += 10000;
+    if(key== 'q' ){
+        if(player->shield==100){
+            player->current_health_for_shield= player->health; 
+            player->show_shield=true;
+        }
+        else{
+            player->show_shield=false;
+        }
+    };
+
 }
 
 void ShipBattle::keyReleased(int key) {
