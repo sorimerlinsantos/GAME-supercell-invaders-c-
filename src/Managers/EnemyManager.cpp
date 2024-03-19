@@ -72,6 +72,8 @@ void EnemyManager::manageCollisions(Player* player) {
             if (!bullet.bulletIsOutOfBounds() && enemy->getHitBox()->isHit(bullet)) {
                 player->health = min(player->health + 3.0, 100.0); // Reward the player by healing them
                 player->shield= min(player->shield + 10.0, 100.0); // every time that they hit the player, we add to the shield.
+
+
                 enemy->takeDamage(bullet.getDamage());            // Enemy will take damage from the bullet
                 if (enemy->isDead()) {
                     SoundManager::playSong("shipDestroyed", false);
@@ -84,55 +86,78 @@ void EnemyManager::manageCollisions(Player* player) {
         }
     }
 
+
     enemyList.erase(remove_if(enemyList.begin(), enemyList.end(), [](const unique_ptr<EnemyShip>& enemy){ return !enemy; }), enemyList.end());
 
     // Handle collisions between enemy bullets and the player
-    for (auto& enemy : enemyList) {
-        if (player->hitBox.isColliding(*enemy->getHitBox())) {
-            player->health = max(player->health - 3.0, 0.0);
-        }
-        for (auto& bullet : enemy->getBullets()) {
-            if (!bullet.bulletIsOutOfBounds() && player->hitBox.isHit(bullet)) {
+        for (auto& enemy : enemyList) {
+            if (player->hitBox.isColliding(*enemy->getHitBox())) {
+                 if(player->show_shield==false){
+                    player->health = max(player->health - 3.0, 0.0);
+                }
+            }
+            for (auto& bullet : enemy->getBullets()) {
+                if (!bullet.bulletIsOutOfBounds() && player->hitBox.isHit(bullet)) {
+                    if(player->show_shield==false){
+                        player->health = max(player->health - 10.0, 0.0); 
+                    }      // Player takes damage without shield      
 
-                player->health = max(player->health - 10.0, 0.0);       // Player takes damage 
                 
+                    
                 bullet.markForDeletion(); // Mark bullet for deletion (without it you would have a memory leak (Ask Bienve what are memory leaks))
             }
+               
         }
     }
+        
+    
+   
+        for (auto& Boss : bossList) {
+            Boss->showHitboxes = toggleHitBoxes;
 
-    for (auto& Boss : bossList) {
-        Boss->showHitboxes = toggleHitBoxes;
-
-        for (auto& bullet : player->bullets) {
-            
-            if (!bullet.bulletIsOutOfBounds() && Boss->getHitBox()->isHit(bullet)) {
-                player->health = min(player->health + 3.0, 100.0); // Reward the player
-                Boss->takeDamage(bullet.getDamage());
+            for (auto& bullet : player->bullets) {
                 
-                if (Boss->isDead()) {                   //If the boss has died from a bullet
-                    SoundManager::stopSong(whichBoss);
-                    SoundManager::playSong("battle", false);
-                    bossHasDied();
-                    SoundManager::playSong("shipDestroyed", false);
-                    pointsPerUpdateCycle += Boss->getPoints();
-                    resetKillSpreeTimer(150);
+                if (!bullet.bulletIsOutOfBounds() && Boss->getHitBox()->isHit(bullet)) {
+                    player->health = min(player->health + 3.0, 100.0); // Reward the player
+                    Boss->takeDamage(bullet.getDamage());
+                    
+                    if (Boss->isDead()) {                   //If the boss has died from a bullet
+                        SoundManager::stopSong(whichBoss);
+                        SoundManager::playSong("battle", false);
+                        bossHasDied();
+                        SoundManager::playSong("shipDestroyed", false);
+                        pointsPerUpdateCycle += Boss->getPoints();
+                        resetKillSpreeTimer(150);
+                    }
+
+                    bullet.markForDeletion(); // Mark bullet for deletion
                 }
+            }
+        }
+   
+        for (auto& Boss : bossList) {
+            for (auto& bullet : Boss->getBullets()) {
+                if (!bullet.bulletIsOutOfBounds() && player->hitBox.isHit(bullet)) {
 
-                bullet.markForDeletion(); // Mark bullet for deletion
+                    if(player->show_shield==false){
+                        player->health = max(player->health - 10.0, 0.0); 
+                    }        // Player takes damage 
+                    //bullet.markForDeletion(); // Mark bullet for deletion
+               
+                bullet.markForDeletion();
             }
         }
     }
 
-    for (auto& Boss : bossList) {
-        for (auto& bullet : Boss->getBullets()) {
-            if (!bullet.bulletIsOutOfBounds() && player->hitBox.isHit(bullet)) {
-
-                player->health = max(player->health - 10.0, 0.0);       // Player takes damage 
-                bullet.markForDeletion(); // Mark bullet for deletion
-            }
+    if(player->show_shield==true){  //player takes no damage with shield
+        player->health=player->current_health_for_shield;
+        if(player->shield > 0){
+            player->shield -= 0.1;
+        } else {
+            player->show_shield = false;
         }
     }
+
 
     // Clean up bullets marked for deletion in both player and enemies
     player->removeMarkedBullets();
@@ -141,8 +166,8 @@ void EnemyManager::manageCollisions(Player* player) {
         enemy->removeMarkedBullets();
     }
 
-}
 
+}
 
 
 void EnemyManager::updateEnemyBullets(EnemyShip* enemy){
