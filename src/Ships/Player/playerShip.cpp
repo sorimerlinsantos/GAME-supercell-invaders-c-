@@ -57,7 +57,7 @@ void Player::update() {
 
 
     if(found==true){  //created the sprinting
-        maxSpeed *= 2;
+        maxSpeed = 10;
     }
     else{
         maxSpeed=5;
