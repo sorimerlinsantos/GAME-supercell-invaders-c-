@@ -31,12 +31,16 @@ private:
     ofTrueTypeFont font;          // Font for text rendering
     ofTrueTypeFont indicatorFont; // Font for text rendering in regards 
     ofImage backgroundImage;       // Background image of the game
+    ofImage ForceShield;           // image for force shield
+    ofImage NewBomb;  
+
+
 
 public:   
     // Public members accessible outside the class
     Player* player;                   // Pointer to the player's ship
     bool displayBossWarning;          // Flag to display boss warning
-    int lives_remaining=3;
+    int lives_remaining=3;             //lives remaining of the player
 
     // Constructor and Destructor
     ShipBattle();                     // Constructor declaration

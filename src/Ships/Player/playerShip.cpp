@@ -41,6 +41,8 @@ void Player::draw() {
                 
         // Draw the hitbox around the player ship. Uncomment this line for testing purposes
             if(showHitbox)  this->hitBox.draw();
+
+            // i
 }
 
 void Player::update() {
@@ -62,6 +64,9 @@ void Player::update() {
     else{
         maxSpeed=5;
     }
+    if(this->NewBoss_dead==true){
+        this->shipSprite.load("ShipModels/newplayer.png");
+    }
 
 }
 
@@ -74,6 +79,9 @@ void Player::shoot() {
 
                 Projectiles p = Projectiles(ofPoint(this->pos.x, this->pos.y), this->shipOrientation);
                 p.setColors(ofColor::azure, ofColor::blueViolet);
+                if(this->NewBoss_dead==true){
+                    p.setColors(ofColor::green, ofColor::white);
+                }
                 this->bullets.push_back(p);
 
             // SoundManager::playSong("bulletSound", false);
@@ -107,6 +115,7 @@ void Player::processPressedKeys() {
 
     if(keyMap[' ']) shoot();
 
+    
             
     if (!isMoving) {
         // Apply damping to gradually slow down the ship when no keys are being pressed

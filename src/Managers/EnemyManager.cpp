@@ -63,18 +63,32 @@ void EnemyManager::updateEnemies(Player* player){
 
 
 void EnemyManager::manageCollisions(Player* player) {
-
+if(player->bomb_active==true){
+    for (auto& enemy : enemyList){
+        if(!enemy->isBoss()){
+            enemy->takeDamage(300);
+        }
+        else{
+            enemy->takeDamage(10);
+        }
+    }
+    player->count=0;
+    player->bomb_active=false;
+}
   // Handle collisions between player bullets and enemies
     for (auto& enemy : enemyList) {
             enemy->showHitboxes = toggleHitBoxes;
-
         for (auto& bullet : player->bullets) {
             if (!bullet.bulletIsOutOfBounds() && enemy->getHitBox()->isHit(bullet)) {
                 player->health = min(player->health + 3.0, 100.0); // Reward the player by healing them
-                player->shield= min(player->shield + 10.0, 100.0); // every time that they hit the player, we add to the shield.
-
+                //if(player->show_shield==false){                      // every time that they hit the player, we add to the shield.
+                    player->shield= min(player->shield + 10.0, 100.0);
+                    //} 
 
                 enemy->takeDamage(bullet.getDamage());            // Enemy will take damage from the bullet
+                if(player->NewBoss_dead==true){
+                    enemy->takeDamage(bullet.getDamage()*4);  
+                }    
                 if (enemy->isDead()) {
                     SoundManager::playSong("shipDestroyed", false);
                     pointsPerUpdateCycle += enemy->getPoints();
@@ -115,13 +129,20 @@ void EnemyManager::manageCollisions(Player* player) {
         for (auto& Boss : bossList) {
             Boss->showHitboxes = toggleHitBoxes;
 
+
             for (auto& bullet : player->bullets) {
                 
                 if (!bullet.bulletIsOutOfBounds() && Boss->getHitBox()->isHit(bullet)) {
                     player->health = min(player->health + 3.0, 100.0); // Reward the player
                     Boss->takeDamage(bullet.getDamage());
-                    
-                    if (Boss->isDead()) {                   //If the boss has died from a bullet
+                    if(player->NewBoss_dead==true){
+                        Boss->takeDamage(bullet.getDamage()*4);
+                    }
+                    //for
+                    if (Boss->isDead()) {
+                        player->count=1;
+                        player-> NewBoss_dead=true;
+                        //player->bomb_active=true;              //If the boss has died from a bullet
                         SoundManager::stopSong(whichBoss);
                         SoundManager::playSong("battle", false);
                         bossHasDied();
@@ -148,7 +169,7 @@ void EnemyManager::manageCollisions(Player* player) {
             }
         }
     }
-
+//mover a ship batlle in upadate
     if(player->show_shield==true){  //player takes no damage with shield
         player->health=player->current_health_for_shield;
         if(player->shield > 0){
@@ -157,6 +178,10 @@ void EnemyManager::manageCollisions(Player* player) {
             player->show_shield = false;
         }
     }
+
+
+    
+
 
 
     // Clean up bullets marked for deletion in both player and enemies

@@ -10,6 +10,7 @@ class Player{
 
     private:
         ofImage shipSprite;                 // Sprite for the ship   
+        // ofImage heart;
 
         int score;                          // Score of the player
 
@@ -43,7 +44,13 @@ class Player{
         bool showHitbox = false;
         double shield;                         //variable for counting when the shield is suppose to appear.
         bool show_shield;                      //variable for shield
-        int current_health_for_shield;         //saving the health that the player had at that point
+        int current_health_for_shield;
+        bool bomb_active;  
+        int count;       //saving the health that the player had at that point
+        bool NewBoss_dead;
+
+       
+        
                                 //NEW VARIABLE FOR THE LIVES 
     //added un getter para health
         int getHealth();
