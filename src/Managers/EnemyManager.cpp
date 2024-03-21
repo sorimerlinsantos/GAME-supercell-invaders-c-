@@ -81,9 +81,9 @@ if(player->bomb_active==true){
         for (auto& bullet : player->bullets) {
             if (!bullet.bulletIsOutOfBounds() && enemy->getHitBox()->isHit(bullet)) {
                 player->health = min(player->health + 3.0, 100.0); // Reward the player by healing them
-                //if(player->show_shield==false){                      // every time that they hit the player, we add to the shield.
+                if(player->show_shield==false){                      // every time that they hit the player, we add to the shield.
                     player->shield= min(player->shield + 10.0, 100.0);
-                    //} 
+                } 
 
                 enemy->takeDamage(bullet.getDamage());            // Enemy will take damage from the bullet
                 if(player->NewBoss_dead==true){
