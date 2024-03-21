@@ -58,6 +58,8 @@ class EnemyShip {
         HitBox* getHitBox() { return enemyHitBox; }
         vector<Projectiles>& getBullets() { return enemyBullets; }
         int getPoints() { return score; }
+        //extra getters
+        
 
         //Other methods:
         virtual void takeDamage(int dmg) {

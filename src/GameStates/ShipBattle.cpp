@@ -12,6 +12,9 @@ ShipBattle::ShipBattle() {
     font.load("Fonts/Orbitron.ttf", 20, true);
     indicatorFont.load("Fonts/Orbitron.ttf", 10, true);
     backgroundImage.load("Menu_Images/BattleArea.jpg");
+    ForceShield.load("CompressedImages/ForceShield.png");
+    NewBomb.load("CompressedImages/Bomb-min.png");
+        
 
 
 }
@@ -89,6 +92,7 @@ void ShipBattle::draw() {
     player->draw();
     draw_bullets();
     
+    
     // Draw boss warning if needed
     if (displayBossWarning) {
         // Semi-transparent red screen tint
@@ -111,13 +115,15 @@ void ShipBattle::draw() {
         ofDrawRectangle(ofGetWidth() - 150, 30, 50, 50);
         ofFill();
 
-    // //drawing the shield 
-    // if(player->show_shield==true){
-    //     ForceShield.load("ForceShield.png", 20,true);
-        
+    //drawing the shield 
+    if(player->show_shield==true){
+        ForceShield.draw(this->player->pos.x - this->player->hitBox.box.width,this->player->pos.y - this->player->hitBox.box.height,70,70);
 
-    // }
-    
+    }
+    if(player->count==1){
+        NewBomb.draw(ofGetWidth() - 150, 30, 50, 50);
+    }
+
 }
 
 // ====================================
@@ -143,6 +149,11 @@ void ShipBattle::keyPressed(int key) {
             player->show_shield=false;
         }
     };
+    if(key=='e'){
+        if(player->count==1)
+            player->bomb_active=true;
+        }
+    
 
 }
 
