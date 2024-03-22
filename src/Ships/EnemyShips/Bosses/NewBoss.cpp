@@ -2,7 +2,7 @@
 
 NewBoss::NewBoss(int xpos, int ypos, string name) : Boss(xpos, ypos,0.0, 750, name) {
     enemyShipSprite.load("CompressedImages/Space_Station-min.png");
-    enemyHitBox = new HitBox(pos.x, pos.y - 30, enemyShipSprite.getWidth() * 0.05, enemyShipSprite.getHeight() * 0.8);
+    enemyHitBox = new HitBox(pos.x - 95, pos.y - 30, enemyShipSprite.getWidth() * 0.35, enemyShipSprite.getHeight() * 0.35);
     
     shootingPoint = ofPoint(ofGetWidth() / 2, ofGetHeight() / 2);
     
