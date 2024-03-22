@@ -64,8 +64,9 @@ void Player::update() {
     else{
         maxSpeed=5;
     }
-    if(this->NewBoss_dead==true){
+    if(this->NewBoss_dead==true && !this->newPlayerLoaded){
         this->shipSprite.load("ShipModels/newplayer.png");
+        this->newPlayerLoaded = true;
     }
 
 }

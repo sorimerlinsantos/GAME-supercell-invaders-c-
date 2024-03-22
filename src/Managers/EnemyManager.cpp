@@ -141,7 +141,7 @@ if(player->bomb_active==true){
                     //for
                     if (Boss->isDead()) {
                         player->count=1;
-                        player-> NewBoss_dead=true;
+                        player->NewBoss_dead=true;
                         //player->bomb_active=true;              //If the boss has died from a bullet
                         SoundManager::stopSong(whichBoss);
                         SoundManager::playSong("battle", false);
@@ -292,15 +292,15 @@ void EnemyManager::spawnEnemy(Player* player){
                 initiateBossSpawn("ORT Xibalba");
                 ortSeen = true; // Prevent multiple spawns
             }
-            else if (currentScore > 50000 && !ortSeen) {
+            else if (currentScore > 50000 && !ufoSeen) {
                 // Spawn UFO ORT
                 initiateBossSpawn("Galactica Supercell ORT");
                 ufoSeen = true; // Prevent multiple spawns
             }
-            else if (currentScore > 10000 && !ufoSeen) {
+            else if (currentScore > 10000 && !newSeen) {
                 // Spawn the new boss
                 initiateBossSpawn("Space Station");
-                newSeen = true;
+                newSeen = true; // Prevent multiple spawns
             }
         }
 
@@ -392,6 +392,7 @@ void EnemyManager::cleanUp() {
     bossList.clear();
     ufoSeen = false;
     ortSeen = false;
+    newSeen = false;
     bossHasDied();
 }
 

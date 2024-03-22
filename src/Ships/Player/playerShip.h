@@ -47,7 +47,8 @@ class Player{
         int current_health_for_shield;
         bool bomb_active;  
         int count;       //saving the health that the player had at that point
-        bool NewBoss_dead;
+        bool NewBoss_dead = false;
+        bool newPlayerLoaded = false; // Needed to know if the new player ship sprite have already load.
 
        
         
