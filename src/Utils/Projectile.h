@@ -24,6 +24,7 @@ class Projectiles {
         bool markedForDeletion;     // Flag to mark the projectile for deletion
         
         
+        
         // Constructors
         Projectiles(ofPoint p, float angle);            // Constructor to initialize a projectile with position and angle
         Projectiles(ofPoint p, float angle, int dmg);   // Overloaded constructor to also set damage
@@ -32,6 +33,9 @@ class Projectiles {
         int getDamage() { return damage; }              // Returns the damage of the projectile
         void setSpeed(int s) { speed = s; }             // Sets the speed of the projectile
         void setColors(ofColor c1, ofColor c2);         // Sets the colors of the projectile
+        float setWidth(float w) {width= w;}   
+        float setHeight(float h) {height=h;}
+        int setDamage(int d){damage=d;}
 
         // Action Methods
         void update();                                  // Updates the projectile's position based on its speed and angle

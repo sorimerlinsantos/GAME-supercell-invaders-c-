@@ -23,6 +23,7 @@ void Button::setPressed (int mouseX, int mouseY) {
     }
 }
 
+
 bool Button::wasPressed() {
     return this->pressed;
 }

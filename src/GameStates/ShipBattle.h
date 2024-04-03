@@ -33,6 +33,12 @@ private:
     ofImage backgroundImage;       // Background image of the game
     ofImage ForceShield;           // image for force shield
     ofImage NewBomb;  
+    ofImage NewCity;
+    ofImage FirePower;
+    ofImage IcePower;
+    ofImage LaserPower;
+    ofImage Hearth;
+
 
 
 
@@ -71,5 +77,7 @@ public:
     double scoreMultiplier();                               // Calculate score multiplier based on game state
     void removeMarkedPlayerBullets();                       // Remove bullets marked for deletion
     void shieldBar(int theShield, int maxHealth);           // Render the on when we can use the shield. 
+    //power variables 
+    bool firepower;
     
 };

@@ -68,6 +68,10 @@ void Player::update() {
         this->shipSprite.load("ShipModels/newplayer.png");
         this->newPlayerLoaded = true;
     }
+    if(this->new_city_AND_gameMode==true){
+        this->shipSprite.load("ShipModels/NewCityShip.png");
+
+    }
 
 }
 
@@ -80,9 +84,36 @@ void Player::shoot() {
 
                 Projectiles p = Projectiles(ofPoint(this->pos.x, this->pos.y), this->shipOrientation);
                 p.setColors(ofColor::azure, ofColor::blueViolet);
-                if(this->NewBoss_dead==true){
+                if(this->NewBoss_dead==true && new_city_AND_gameMode==false){
                     p.setColors(ofColor::green, ofColor::white);
                 }
+                if(this->fire_active==true && new_city_AND_gameMode==true){
+                    p.setColors(ofColor::orange, ofColor::red);
+                    p.setWidth(15);
+                    p.setHeight(25);
+                    p.setSpeed(80);
+                    p.setDamage(700);
+                }
+                else if(this->ice_active==true && new_city_AND_gameMode==true ){
+                    p.setColors(ofColor::blue, ofColor::white);
+                    p.setWidth(10);
+                    p.setHeight(33);
+                    p.setSpeed(80);
+                    p.setDamage(800);
+
+                }
+                 else if(this->laser_active==true && new_city_AND_gameMode==true){
+                    p.setColors(ofColor::blue, ofColor::blueViolet);
+                    p.setWidth(5);
+                    p.setHeight(60);
+                    p.setSpeed(80);
+                    p.setDamage(1000);
+
+                }
+
+
+    
+
                 this->bullets.push_back(p);
 
             // SoundManager::playSong("bulletSound", false);
@@ -91,6 +122,7 @@ void Player::shoot() {
             // Update the last shot time to the current time
             lastShotTime = currentTime;
         }
+
 }
 
 void Player::setShotCooldown(float shotCooldown) { this->shotCooldown = shotCooldown; }

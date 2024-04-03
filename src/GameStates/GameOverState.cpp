@@ -6,7 +6,6 @@ GameOverState::GameOverState(){
     textFont.load("Fonts/Orbitron.ttf", 30);
 
     Button* PlayButton = new Button(ofGetWidth()/2 - 100, ofGetHeight() * 3/4, 200, 50, "", "Play Again");
-
     buttons.push_back(PlayButton);
  
 }

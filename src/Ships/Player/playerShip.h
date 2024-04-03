@@ -49,6 +49,11 @@ class Player{
         int count;       //saving the health that the player had at that point
         bool NewBoss_dead = false;
         bool newPlayerLoaded = false; // Needed to know if the new player ship sprite have already load.
+        bool new_city_AND_gameMode=false;
+        bool fire_active=false;
+        bool ice_active=false;
+        bool laser_active=false; 
+    
 
        
         

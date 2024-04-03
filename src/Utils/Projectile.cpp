@@ -8,7 +8,11 @@ Projectiles::Projectiles(ofPoint p, float angle) {
     speed = 10;
     damage = 10;
     markedForDeletion = false;
+
+
 }
+
+
 
 Projectiles::Projectiles(ofPoint p, float angle, int dmg) {
     this->position = p;

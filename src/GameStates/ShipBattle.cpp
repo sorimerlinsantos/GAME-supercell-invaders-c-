@@ -11,9 +11,17 @@ ShipBattle::ShipBattle() {
     
     font.load("Fonts/Orbitron.ttf", 20, true);
     indicatorFont.load("Fonts/Orbitron.ttf", 10, true);
-    backgroundImage.load("Menu_Images/BattleArea.jpg");
+    backgroundImage.load("Menu_Images/BattleAreanew.jpg");
     ForceShield.load("CompressedImages/ForceShield.png");
     NewBomb.load("CompressedImages/Bomb-min.png");
+    FirePower.load("CompressedImages/firePOWER.png");
+    IcePower.load("CompressedImages/freezePOWER.png");
+    LaserPower.load("CompressedImages/laserPOWER.png");
+    NewCity.load("Menu_Images/newcity.jpg");
+
+
+
+
         
 
 
@@ -81,6 +89,13 @@ void ShipBattle::draw() {
     ofSetBackgroundColor(ofColor::black);
     backgroundImage.draw(0, 0, ofGetWidth(), ofGetHeight());
     
+
+    //drawing New city 
+
+    if(player->new_city_AND_gameMode==true){
+        ofSetBackgroundColor(ofColor::black);
+        NewCity.draw(0, 0, ofGetWidth(), ofGetHeight());
+    }
     // Draw the score
     ofSetColor(ofColor::white);
     font.drawString("SCORE " + to_string(playerScore), ofGetWidth() / 2 - 50, 50);
@@ -123,8 +138,38 @@ void ShipBattle::draw() {
     if(player->count==1){
         NewBomb.draw(ofGetWidth() - 150, 30, 50, 50);
     }
+    if(player->new_city_AND_gameMode==true){
+        //1
+        ofNoFill();
+        ofDrawRectangle(ofGetWidth() - 250, 30, 50, 50);
+        ofFill();
+
+        //DRAWING FIRE POWER 
+        FirePower.draw(ofGetWidth() - 250, 30, 50, 50);
+        
+
+        //2
+        ofNoFill();
+        ofDrawRectangle(ofGetWidth() - 350, 30, 50, 50);
+        ofFill();
+
+        //DRAWING THE FREEZE POWER 
+        IcePower.draw(ofGetWidth() - 350, 30, 50, 50);
+        
+        //3
+        ofNoFill();
+        ofDrawRectangle(ofGetWidth() - 450, 30, 50, 50);
+        ofFill();
+
+        //DRAWING LASER POWER 
+        LaserPower.draw(ofGetWidth() - 450, 30, 50, 50);
+
+
+    }
 
 }
+
+
 
 // ====================================
 // Input Handling Section
@@ -153,6 +198,29 @@ void ShipBattle::keyPressed(int key) {
         if(player->count==1)
             player->bomb_active=true;
         }
+    if(key=='n'){
+        player->new_city_AND_gameMode=true;
+
+    }
+    if(key=='f'){
+        player->fire_active=true;
+        player->ice_active=false;
+        player->laser_active=false;
+    }
+    if(key=='i'){
+        player->ice_active=true;
+        player->fire_active=false;
+        player->laser_active=false;
+
+    }
+    if(key=='l'){
+        player->laser_active=true;
+        player->ice_active=false;
+        player->fire_active=false;
+
+
+    }
+
     
 
 }
@@ -164,6 +232,7 @@ void ShipBattle::keyReleased(int key) {
 
 void ShipBattle::mousePressed(int x, int y, int button) {
     // Implementation for mousePressed event in case you want to do something with this
+
 }
 
 // ====================================
