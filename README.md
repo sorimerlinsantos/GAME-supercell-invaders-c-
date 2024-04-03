@@ -26,3 +26,15 @@ If a partner has no commits in the repositories, they'll will receive a 0.
 
 ## Student Notes
 If you have any notes to add for your TA about the project specs or creative additions, you may do so in this section of the README:
+ BONUS: FROM SPACE TO A FUTURISTIC CITY
+
+-made a new environment, with new powers for the player. Ice power, laser power, and fire power.
+-you can see the powers, in the top of the screen besides the bomb.
+-changed player ship in the new city.
+-changed the background of the old space.
+INSTRUCTIONS:
+1.To move from space to the new city press "n", **be careful you can't not go back, choose wisely;)
+**YOU CAN CHANGE BETWEEN POWERS**
+2.To use the fire power press, "f"
+3.To use the laser power press "l"
+4.To use the ice power press "i"
