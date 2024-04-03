@@ -6,6 +6,7 @@ Player::Player(int Xposition, int Yposition){
     pos.x = Xposition;
     pos.y = Yposition;
     health = 100;
+    livesRemaining = 4;
     velocity.set(0, 0);
     this->shipSprite.load("ShipModels/shipModel2.png");
 

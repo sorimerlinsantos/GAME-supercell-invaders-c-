@@ -18,6 +18,7 @@ ShipBattle::ShipBattle() {
     IcePower.load("CompressedImages/freezePOWER.png");
     LaserPower.load("CompressedImages/laserPOWER.png");
     NewCity.load("Menu_Images/newcity.jpg");
+    Hearth.load("CompressedImages/livesRemaining.png");
 
 
 
@@ -61,9 +62,9 @@ void ShipBattle::update() {
 
     // State switching logic for when the player dies, to actually have more lifes
     if (player->health <= 0) {
-        if(lives_remaining!=1){
+        if(player->livesRemaining >1){
             player-> setHealth(100);
-            lives_remaining--;
+            player->livesRemaining--;
         }
         else{
             this->setNextState("GameOverState");
@@ -99,7 +100,22 @@ void ShipBattle::draw() {
     // Draw the score
     ofSetColor(ofColor::white);
     font.drawString("SCORE " + to_string(playerScore), ofGetWidth() / 2 - 50, 50);
-    font.drawString("Lives Remaining   "+to_string(lives_remaining), ofGetWidth()/2 - 50, 100);
+
+    // Draw lives remaining
+    if (player->livesRemaining == 1){
+        Hearth.draw(ofGetWidth()/2, 50, 45, 45);
+    }
+    else if (player->livesRemaining == 2){
+        Hearth.draw(ofGetWidth()/2 - 22, 50, 45, 45);
+        Hearth.draw(ofGetWidth()/2 + 22, 50, 45, 45);
+    }
+    else if (player->livesRemaining == 3){
+        Hearth.draw(ofGetWidth()/2 - 45, 50, 45, 45);
+        Hearth.draw(ofGetWidth()/2 + 45, 50, 45, 45);
+        Hearth.draw(ofGetWidth()/2, 50, 45, 45);
+    }
+    
+    // font.drawString("Lives Remaining   "+to_string(lives_remaining), ofGetWidth()/2 - 50, 100);
 
 
     // Draw enemies and player
