@@ -18,7 +18,7 @@ Don't forget that you must also fill out an evaluation form in Moodle to conside
 ## Grading
 
 Partner 1: (Keniel Tricoche Concepción) (802 23 8008) (keniel.tricoche@upr.edu)
-Partner 2: (STUDENT NUMBER HERE) (STUDENT NAME HERE) (STUDENT EMAIL HERE)
+Partner 2: (Sorimerlin Santos Santana) (802 23 7326) (sorimerlin.santos@upr.edu)
 
 Any project that doesn't compile will receive a 0.
 
