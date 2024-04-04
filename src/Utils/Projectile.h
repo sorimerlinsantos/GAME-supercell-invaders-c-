@@ -33,9 +33,9 @@ class Projectiles {
         int getDamage() { return damage; }              // Returns the damage of the projectile
         void setSpeed(int s) { speed = s; }             // Sets the speed of the projectile
         void setColors(ofColor c1, ofColor c2);         // Sets the colors of the projectile
-        float setWidth(float w) {width= w;}   
-        float setHeight(float h) {height=h;}
-        int setDamage(int d){damage=d;}
+        void setWidth(float w) {width= w;}   
+        void setHeight(float h) {height=h;}
+        void setDamage(int d){damage=d;}
 
         // Action Methods
         void update();                                  // Updates the projectile's position based on its speed and angle

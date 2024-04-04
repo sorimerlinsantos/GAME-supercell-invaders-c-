@@ -65,66 +65,67 @@ void Player::update() {
     else{
         maxSpeed=5;
     }
-    if(this->NewBoss_dead==true && !this->newPlayerLoaded){
+    if(this->NewBoss_dead==true && !this->newPlayerLoaded){ //Load the new ship 
         this->shipSprite.load("ShipModels/newplayer.png");
         this->newPlayerLoaded = true;
     }
-    if(this->new_city_AND_gameMode==true){
+    if(this->new_city_AND_gameMode){
         this->shipSprite.load("ShipModels/NewCityShip.png");
 
     }
 
 }
 
-void Player::shoot() { 
+void Player::shoot() {
     // Calculate the current time
     float currentTime = ofGetElapsedTimef();
 
     // Check if enough time has passed since the last shot
-        if (currentTime - lastShotTime >= shotCooldown) {
+    if (currentTime - lastShotTime < shotCooldown) {
+        return; // Exit early if shot cooldown is not expired
+    }
 
-                Projectiles p = Projectiles(ofPoint(this->pos.x, this->pos.y), this->shipOrientation);
-                p.setColors(ofColor::azure, ofColor::blueViolet);
-                if(this->NewBoss_dead==true && new_city_AND_gameMode==false){
-                    p.setColors(ofColor::green, ofColor::white);
-                }
-                if(this->fire_active==true && new_city_AND_gameMode==true){
-                    p.setColors(ofColor::orange, ofColor::red);
-                    p.setWidth(15);
-                    p.setHeight(25);
-                    p.setSpeed(80);
-                    p.setDamage(700);
-                }
-                else if(this->ice_active==true && new_city_AND_gameMode==true ){
-                    p.setColors(ofColor::blue, ofColor::white);
-                    p.setWidth(10);
-                    p.setHeight(33);
-                    p.setSpeed(80);
-                    p.setDamage(800);
+    // Create a new projectile
+    Projectiles p = Projectiles(ofPoint(this->pos.x, this->pos.y), this->shipOrientation);
 
-                }
-                 else if(this->laser_active==true && new_city_AND_gameMode==true){
-                    p.setColors(ofColor::blue, ofColor::blueViolet);
-                    p.setWidth(5);
-                    p.setHeight(60);
-                    p.setSpeed(80);
-                    p.setDamage(1000);
+    // Set default projectile colors
+    p.setColors(ofColor::azure, ofColor::blueViolet);
 
-                }
-
-
-    
-
-                this->bullets.push_back(p);
-
-            // SoundManager::playSong("bulletSound", false);
-            SoundManager::playSong("Beam", false);
-
-            // Update the last shot time to the current time
-            lastShotTime = currentTime;
+    // Adjust projectile properties based on active abilities and game mode
+    if (new_city_AND_gameMode) {
+        if (fire_active) {
+            p.setColors(ofColor::orange, ofColor::red);
+            p.setWidth(15);
+            p.setHeight(25);
+            p.setDamage(700);
+        } else if (ice_active) {
+            p.setColors(ofColor::blue, ofColor::white);
+            p.setWidth(10.0);
+            p.setHeight(33.0);
+            p.setDamage(800);
+        } else if (laser_active) {
+            p.setColors(ofColor::blue, ofColor::blueViolet);
+            p.setWidth(5);
+            p.setHeight(60);
+            p.setDamage(1000);
         }
+    } 
+    else if (NewBoss_dead) {
+        p.setColors(ofColor::green, ofColor::white);
+    }
 
+    // Add the projectile to the bullets vector
+    this->bullets.push_back(p);
+
+    // Play shooting sound effect
+    SoundManager::playSong("Beam", false);
+
+    // Update the last shot time to the current time
+    lastShotTime = currentTime;
 }
+
+
+
 
 void Player::setShotCooldown(float shotCooldown) { this->shotCooldown = shotCooldown; }
 
